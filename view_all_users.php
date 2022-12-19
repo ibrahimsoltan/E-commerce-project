@@ -27,7 +27,7 @@ mysqli_close($db);
 }
 else
 {
-	//view the error
-    echo $msg;
+    echo "You are not logged in";
+    echo "<p><a href='login.html'>Login</a></p>"
 }
 ?>

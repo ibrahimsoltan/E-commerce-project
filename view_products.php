@@ -1,8 +1,6 @@
 <?php
 session_start();
-
-if (isset($_SESSION["user_id"])) {
-    $db = mysqli_connect("localhost", "root", "", "ecomm-db");
+$db = mysqli_connect("localhost", "root", "", "ecomm-db");
     $q = mysqli_query($db, 'SELECT * FROM `product`');
     echo "<table border = 2 width = 100% >";
     echo "<tr><th>product_name</th><th>product_price</th><th>product_brief</th>
@@ -22,10 +20,12 @@ if (isset($_SESSION["user_id"])) {
     echo "</table>";
     echo '<p><a href="index.php" class="bar-item button">back</a></p>';
     mysqli_close($db);
+if (isset($_SESSION["user_id"])) {
+    
 }
 
 else {
-    echo "You are not logged in";
+    
 }
 
 ?>
