@@ -1,6 +1,6 @@
 <?php
 error_reporting(0);
-session_start(); 
+session_start();
 
 if (isset($_SESSION["user_id"]))
 {
@@ -20,14 +20,14 @@ while ($row=mysqli_fetch_array($q )) {
     echo "<td>".$row['user_address'];
     echo "<td>".$row['user_location'];
     echo "<td>".$row['user_phone'];
-    echo "<td>".$row['user_photo'];
-}
+    echo "<td><img src='images/".$row['user_photo']."' width='100' height='100'>";}
 echo "</table>";
 echo '<p><a href="index.php" class="bar-item button">back</a></p>';
 mysqli_close($db);
 }
 else
 {
-	header("Location: index.php");
+	//view the error
+    echo $msg;
 }
 ?>

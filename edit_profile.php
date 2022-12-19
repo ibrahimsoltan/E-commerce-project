@@ -30,7 +30,6 @@
             <br>
             Edit Phone: <input type="text" name="user_phone" value='<?php echo $row['user_phone'];?>'>
             <br>
-            <!--view image-->
             <img src="images/<?php echo $row['user_photo'];?>" width="100" height="100">
             <br>
             <label for="file">Select an image to upload:</label>

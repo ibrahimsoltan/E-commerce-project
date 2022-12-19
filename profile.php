@@ -9,7 +9,8 @@ $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
 
 echo "<table border = 2 width = 100% >";
 echo "<tr><th>user_email</th><th>user_password</th><th>user_name</th>
-<th>user_address</th><th>user_location</th><th>user_phone</th><th>user_photo</th></tr>";
+<th>user_address</th><th>user_location</th><th>user_phone</th><th>user_photo</th>
+</tr>";
 while ($row=mysqli_fetch_array($q )) {
     $user_id =$row['user_id'];
     echo "<tr>";
@@ -23,6 +24,9 @@ while ($row=mysqli_fetch_array($q )) {
 }
 echo "</table>";
 echo '<p><a href="edit_profile.php">edit</a></p>';
+echo '<p><a href="view_all_users.php" class="bar-item button">view all users</a></p>';
+echo '<p><a href="view_products.php" class="bar-item button">view products</a></p>';
+echo '<p><a href="get_favorite_products.php" class="bar-item button">view fav products</a></p>';
 mysqli_close($db);
 }
 else
