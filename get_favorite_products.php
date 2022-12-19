@@ -24,6 +24,7 @@ if (isset($_SESSION["user_id"])) {
     }
     echo "</table>";
     echo '<p><a href="index.php" class="bar-item button">back</a></p>';
+    echo '<p><a href="logout.php" class="bar-item button">log out</a></p>';
     mysqli_close($db);
 }
     

@@ -28,6 +28,6 @@ mysqli_close($db);
 else
 {
     echo "You are not logged in";
-    echo "<p><a href='login.html'>Login</a></p>"
+    echo "<p><a href='login.html'>Login</a></p>";
 }
 ?>

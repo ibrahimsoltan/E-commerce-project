@@ -6,5 +6,6 @@
         <a href="sign_up.html" class="bar-item button">sign up</a>
         <a href="login.html" class="bar-item button">login</a>
         <a href="view_all_users.php" class="bar-item button">view all users</a>
+        <a href="logout.php" class="bar-item button">log out</a>
 </form>
 </form>
