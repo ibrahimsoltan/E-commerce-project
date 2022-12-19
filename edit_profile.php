@@ -99,17 +99,6 @@ if (isset($_SESSION["user_id"]))
     
     }
         
-    /*
-    if(!empty($user_photo)){
-        move_uploaded_file($_FILES['photo']['tmp_name'], 'images/'.$user_photo);
-        $filename = $user_photo;
-    }
-    else{
-        $filename = $user['photo'];
-    }*/
-
-    // if(!empty($user_email)){
-    //  $newuser_email = $user_email;
     // }
     // else{
     //     $newuser_email = $row['user_email'];
