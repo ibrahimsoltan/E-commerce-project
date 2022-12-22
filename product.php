@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 <!DOCTYPE html>
 <html>
 <head>
@@ -219,34 +217,20 @@ ul {
         <center>
 
         <div class='grid-container'>
->>>>>>> Stashed changes
 <?php
 $product_id = $_GET['product_id'];
-session_start();
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $q = mysqli_query($db, "SELECT * FROM `product` WHERE product_id = $product_id");
-echo "<table border = 2 width = 100% >";
-echo "<tr><th>product_name</th><th>product_price</th><th>product_brief</th>
-<th>product_description</th><th>product_photo</th><th>Add to favorites</th></tr>";
 while ($row = mysqli_fetch_array($q)) {
     $product_id = $row['product_id'];
-    echo "<tr>";
-    echo "<td>" . $row['product_name'];
-    echo "<td>" . $row['product_price'];
-    echo "<td>" . $row['product_brief'];
-    echo "<td>" . $row['product_description'];
-    echo "<td><img src='images/" . $row['product_photo'] . "' width='100' height='100'>";
-    if (isset($_SESSION["user_id"])) {
-        echo "<td><a href='add_to_favorites.php?product_id=$product_id'>Add to favorites</a>";
-
-    } else {
-        echo "<td><a href='login.php'>Login to add to favorites</a>";
-    }    
+    echo "<div class='image'> <img class='undernav' src='images/".$row['product_photo']."'> </div>";
+    echo "<div class=' nameprice'><h2>".$row['product_name'] . "</h2>
+     <p id='price'>".$row['product_price']. "EGP</p></div>";
+   
+    echo "<div class='description'><p id='firstchild'>".$row['product_description']."</p></div>";
+    
 }
 echo "</table>";
-<<<<<<< Updated upstream
-echo '<p><a href="index.php" class="bar-item button">back</a></p>';
-=======
 echo "<div class='backbutton'><span id='firstchild'><button class='button'><a class='link' href='index.php'><span>Back To Home Page</span></a></button></span></div> ";
 if (isset($_SESSION["user_id"])) {
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><span>Add to favorites</span></a></button></span></div> ";
@@ -257,7 +241,10 @@ if (isset($_SESSION["user_id"])) {
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='login.html'><span>Login to add to favorites</span></a></button></span></div> ";
 
 }    
->>>>>>> Stashed changes
 mysqli_close($db);
 ?>
+
+</body>
+
+</html>
 

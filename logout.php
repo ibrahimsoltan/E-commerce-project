@@ -6,11 +6,11 @@ if (isset($_SESSION["user_id"]))
 	unset($_SESSION["user_id"]);
 	unset($_SESSION["user_email"]);
 	session_destroy();
-	header("Location: index.php");
+	header("Location: view_products.php");
 }
 else
 {
-	header("Location: index.php");
+	header("Location: view_products.php");
 }
 
 
