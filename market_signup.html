@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body{
-    background-color:#dae0e573/*light silver*/;
-
+	<style>
+		body{
+    background-color:#dae0e573/*light silver*/
 }
 #content{
 
@@ -18,9 +17,6 @@
     left: 35%;
     top: 20%;
     box-shadow: 2px 2px #dee2e6;
-    margin-top: 40px;
-    margin-bottom: auto;
-    
 
 }
 h2{
@@ -51,6 +47,19 @@ input[type=text]{
     border-right: 0px;
 }
 
+input[type="file"]::file-selector-button{
+            border: none;
+            background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
+            color: white;
+            border-radius: 15px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        input[type="file"]::file-selector-button:hover{
+            background: linear-gradient(to bottom right,#007bff7d, #dfc8e5);
+        /*light blue to silver*/
+        }
+
 button{
     transition-duration: 0.1s;
     padding: 10px 10px;
@@ -72,7 +81,6 @@ button:hover {
         background: linear-gradient(to bottom right,#007bff7d, #dfc8e5);
 /*light blue to silver*/
   color: white;
-
 }
 label{
 /*    float: left;*/
@@ -83,22 +91,26 @@ label{
     cursor: pointer;
 }
 
+input[type=file]
+{
+    content: 'Select some files';
+  display: inline-block;
+  background: linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+}
+
 input[type="file"] {
-          margin-left: 50px;
-          margin-top: 30px;
-        }
-        input[type="file"]::file-selector-button{
-            border: none;
-            background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
-            color: white;
-            border-radius: 15px;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        input[type="file"]::file-selector-button:hover{
-            background: linear-gradient(to bottom right,#007bff7d, #dfc8e5);
-        /*light blue to silver*/
-        }
+/*  display: none;*/
+}
 label {
   cursor: pointer;
   padding: 5px 15px;
@@ -107,16 +119,16 @@ label {
   color: #767c83;
   font: 10px;
   font-family: inherit;
-/*  display: inline-block;*/
 }
-    </style>
+	</style>
+
 </head>
  <center>
 <body>
     <div id="content">
-        <form method="POST" action="sign_up.php" enctype="multipart/form-data">
+        <form method="POST" action="market_signup.php" enctype="multipart/form-data">
             <img src="images/Unknown_person.jpg" alt="Unkown user">
-            <h2>Sign up</h2>
+            <h2>Market sign up</h2>
             <input type="text" placeholder="Email*" name="user_email" required="true">
             <br>
             <input type="text" placeholder="Password*" name="user_password" required="true">
@@ -129,12 +141,9 @@ label {
             <br>
             <input type="text" placeholder="Phone*" name="user_phone" required="true">
             <br>
-              <input id="file" name="file" type="file"/>
-            </label>
-            <!-- <label >Select an image to upload:
+            <label for="file">Select an image to upload:</label>
             <br>
             <input type="file" name="file" id="file">
-        </label> -->
             <br>
             <br>
             <button type='submit' name='sign_in'>sign up</button>

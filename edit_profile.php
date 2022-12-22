@@ -1,10 +1,118 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    <style>
+        body{
+            background-color:#dae0e573/*light silver*/
+        }
+        img{
+            padding-top: 20px;
+        }
+        #content{
+
+            text-align: center;
+            background-color: white;
+            border: 2px;
+            border-radius: 3%;
+        /*    position: sticky;*/
+            margin-top: 70px;
+            left: 35%;
+            box-shadow: 2px 2px #dee2e6;
+            height: 650px;
+            width: 550px;
+        }
+        h2{
+            margin-top: 90px;
+            padding-top: 90px;
+            font-size: 30px;
+            font-family:inherit;
+            margin-bottom: 50px;
+            display: inline;
+            top:0;
+        }
+        input[type=text]{
+            margin-top: 5px;
+            width: 250px;
+            height: 30px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #adb5bd;
+        /*    border: 1px solid black;*/
+            border-top: 0px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        input[type=text]:focus{
+            outline: none;
+            border-bottom: 1px solid ;
+        }
+        button{
+            transition-duration: 0.1s;
+            padding: 10px 10px;
+            border-radius: 4px;
+            border: 2px solid navy;
+            width: 190px;
+            margin: 4px 4px 4px 4px;
+            font-family: inherit;
+            font-size: 15px;
+            border-color:#ffffff ;
+            text-decoration: none;
+        /*    background-color: black; */
+            background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));/*dark blue to light blue*/
+            color: white;
+            margin-top: 30px;
+            border-radius: 25px;
+        }
+        button:hover {
+                background: linear-gradient(to bottom right,#007bff7d, #dfc8e5);
+        /*light blue to silver*/
+        color: white;
+        }
+        a {
+            transition-duration: 0.4s;
+            color: #0b2846;
+            border: 2px;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 10px;
+            opacity: 90%;
+        }
+
+        /* Change the color of links on hover */
+        a:hover {
+        /*  background-color: #dee2e6;*/
+        color: black;
+        }
+        #footer{
+            padding-top: 110px;
+            font-size: 10px;
+        }
+        img{
+            width: 60px;
+            height: 70px;
+            border-radius: 25px;
+            border: 2px solid white;
+            margin-top: 10px;
+        }
+        input[type="file"] {
+          margin-left: 50px;
+          margin-top: 30px;
+        }
+        input[type="file"]::file-selector-button{
+            border: none;
+            background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
+            color: white;
+            border-radius: 15px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        input[type="file"]::file-selector-button:hover{
+            background: linear-gradient(to bottom right,#007bff7d, #dfc8e5);
+        /*light blue to silver*/
+        }
+    </style>
 </head>
  <center>
 <body>
@@ -17,26 +125,28 @@
         ?>
     <div id="content">
         <form method="POST" action="" enctype="multipart/form-data">
-            <h2>Edit profile</h2>
-            Edit Email: <input type="text" name="user_email" value='<?php echo $row['user_email'];?>'>
+        
+            <div id='profile-pic'>
+                <img src="images/<?php echo $row['user_photo'];?>" width="100" height="100">
+                <br>
+                <h2>Edit profile</h2>
+            </div>
             <br>
-            Edit Password: <input type="text" name="user_password" value='<?php echo $row['user_password'];?>'>
+            <input type="text" name="user_email" placeholder='Email' value='<?php echo $row['user_email'];?>'>
             <br>
-            Edit Username: <input type="text" name="user_name" value='<?php echo $row['user_name'];?>'>
+            <input type="text" name="user_password" placeholder='Password' value='<?php echo $row['user_password'];?>'>
             <br>
-            Edit Address: <input type="text" name="user_address" value='<?php echo $row['user_address'];?>'>
+            <input type="text" name="user_name" placeholder='Name' value='<?php echo $row['user_name'];?>'>
             <br>
-            Edit Location: <input type="text" name="user_location" value='<?php echo $row['user_location'];?>'>
+            <input type="text" name="user_address" placeholder='Address' value='<?php echo $row['user_address'];?>'>
             <br>
-            Edit Phone: <input type="text" name="user_phone" value='<?php echo $row['user_phone'];?>'>
+            <input type="text" name="user_location" placeholder='Location' value='<?php echo $row['user_location'];?>'>
             <br>
-            <!--view image-->
-            <img src="images/<?php echo $row['user_photo'];?>" width="100" height="100">
+            <input type="text" name="user_phone" placeholder='Phone Number' value='<?php echo $row['user_phone'];?>'>
             <br>
-            <label for="file">Select an image to upload:</label>
+            <!-- <label for="file">Select an image to upload:</label> -->
             <br>
-            <input type="file" name="file" id="file" >
-            <br>
+            <input type="file" name="file" id="file" for="file">
             <br>
             <button type='submit' name='edit'>apply</button>
             <a href="index.php" class="bar-item button">back</a>
@@ -98,75 +208,9 @@ if (isset($_SESSION["user_id"]))
          
     
     }
-        
-    /*
-    if(!empty($user_photo)){
-        move_uploaded_file($_FILES['photo']['tmp_name'], 'images/'.$user_photo);
-        $filename = $user_photo;
-    }
-    else{
-        $filename = $user['photo'];
-    }*/
-
-    // if(!empty($user_email)){
-    //  $newuser_email = $user_email;
-    // }
-    // else{
-    //     $newuser_email = $row['user_email'];
-    // }
-
-    // if(!empty($user_password)){
-    //     $newuser_password = $user_password;
-    //    }
-    //    else{
-    //        $newuser_password= $row['user_password'];
-    //    }
-
-    // if(!empty($user_name)){
-    //     $newuser_name = $user_name;
-    //    }
-    //    else{
-    //        $newuser_name= $row['user_name'];
-    //    }
-
-    // if(!empty($user_address)){
-    //     $newuser_address = $user_address;
-    //    }
-    //    else{
-    //        $newuser_address= $row['user_address'];
-    //    }
-
-    // if(!empty($user_location)){
-    //     $newuser_location = $user_location;
-    //    }
-    //    else{
-    //        $newuser_location= $row['user_location'];
-    //    }
-
-    // if(!empty($user_phone)){
-    //     $newuser_phone = $user_phone;
-    //    }
-    //    else{
-    //        $newuser_phone= $row['user_phone'];
-    //    }
-
-    // try{
-    //     $stmt = $db->prepare
-    //     ("UPDATE user SET user_email=:user_email,
-    //      user_password=:user_password, user_name=:user_name, user_address=:user_address,
-    //      user_location=:user_location, user_phone=:user_phone, user_photo=:user_photo WHERE user_id=:id");
-    //     $stmt->execute(['user_email'=>$newuser_email,
-    //     'user_password'=>$newuser_password, 'user_name'=>$newuser_name, 'user_address'=>$newuser_address,
-    //      'user_location'=>$newuser_location, 'user_phone'=>$newuser_phone,'user_id'=>$user_id]);
-
-    //     $_SESSION['success'] = 'Account updated successfully';
-    // }
-    // catch(PDOException $e){
-    //     $_SESSION['error'] = $e->getMessage();
-    // }
 }
 else
 {
-	header("Location: index.php");
+    header("Location: index.php");
 }
 ?>
