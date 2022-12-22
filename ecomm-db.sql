@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 22, 2022 at 07:36 PM
+-- Generation Time: Dec 22, 2022 at 11:10 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecomm-db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `user_id` int NOT NULL,
+  `product_id` int NOT NULL,
+  `cart_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`cart_id`),
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`),
+  KEY `user_id_2` (`user_id`,`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`user_id`, `product_id`, `cart_id`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -50,6 +74,22 @@ INSERT INTO `favorite_products` (`user_id`, `product_id`, `favorite_products_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `liked_markets`
+--
+
+DROP TABLE IF EXISTS `liked_markets`;
+CREATE TABLE IF NOT EXISTS `liked_markets` (
+  `user_id` int NOT NULL,
+  `market_id` int NOT NULL,
+  `liked_markets_id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`liked_markets_id`),
+  KEY `user_id` (`user_id`),
+  KEY `market_id` (`market_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `market`
 --
 
@@ -71,9 +111,9 @@ CREATE TABLE IF NOT EXISTS `market` (
 --
 
 INSERT INTO `market` (`market_id`, `market_name`, `market_email`, `market_address`, `market_password`, `market_phone`, `market_photo`, `market_location`) VALUES
-(3, 'dtwey', 'test2@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh'),
-(5, 'iyoi', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio'),
-(6, 'iyoi', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio');
+(3, 'market1', 'test2@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh'),
+(5, 'market2', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio'),
+(6, 'market3', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio');
 
 -- --------------------------------------------------------
 
@@ -153,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`user_email`, `user_password`, `user_name`, `user_address`, `user_location`, `user_phone`, `user_photo`, `user_id`) VALUES
-('user@email', '12345', 'user1', 'user1address', 'user1location', '021232', 'Screenshot_20221109_124748.png', 1),
+('user@email', '12345', 'user1', 'user1address', 'user1location', '021232', '960x0.jpg', 1),
 ('user2@email', '98765', 'user2', 'user2Address', 'user2Location', 'user2Phone', '1000_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg', 50),
 ('test@email', '123', 'Amr Mourad', '6 October', '4th District, Building 1675', '01009980955', '1000_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg', 52),
 ('test2@email', '1234', 'cgnd', 'sdgsdg', 'dfsagf', '2542', '4.png', 53),
@@ -165,11 +205,25 @@ INSERT INTO `user` (`user_email`, `user_password`, `user_name`, `user_address`, 
 --
 
 --
+-- Constraints for table `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Constraints for table `favorite_products`
 --
 ALTER TABLE `favorite_products`
   ADD CONSTRAINT `favorite_products_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `favorite_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `liked_markets`
+--
+ALTER TABLE `liked_markets`
+  ADD CONSTRAINT `liked_markets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `liked_markets_ibfk_2` FOREIGN KEY (`market_id`) REFERENCES `market` (`market_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Constraints for table `market_products`
