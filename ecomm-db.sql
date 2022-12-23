@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 22, 2022 at 11:10 PM
+-- Generation Time: Dec 23, 2022 at 10:45 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -32,18 +32,23 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `cart_id` int NOT NULL AUTO_INCREMENT,
+  `quantity` int NOT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`,`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`user_id`, `product_id`, `cart_id`) VALUES
-(1, 1, 1);
+INSERT INTO `cart` (`user_id`, `product_id`, `cart_id`, `quantity`) VALUES
+(1, 1, 2, 2),
+(1, 14, 3, 1),
+(1, 15, 9, 1),
+(50, 22, 11, 1),
+(50, 23, 12, 1);
 
 -- --------------------------------------------------------
 
@@ -59,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `favorite_products` (
   PRIMARY KEY (`favorite_products_id`),
   UNIQUE KEY `favorite_product_unique` (`user_id`,`product_id`),
   KEY `product_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `favorite_products`
@@ -67,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `favorite_products` (
 
 INSERT INTO `favorite_products` (`user_id`, `product_id`, `favorite_products_id`) VALUES
 (1, 1, 9),
-(1, 15, 7),
+(50, 14, 19),
 (52, 1, 14),
 (55, 1, 16);
 
@@ -111,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `market` (
 --
 
 INSERT INTO `market` (`market_id`, `market_name`, `market_email`, `market_address`, `market_password`, `market_phone`, `market_photo`, `market_location`) VALUES
-(3, 'market1', 'test2@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh'),
+(3, 'market1', 'test@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh'),
 (5, 'market2', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio'),
 (6, 'market3', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio');
 

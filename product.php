@@ -235,6 +235,7 @@ echo "<div class='backbutton'><span id='firstchild'><button class='button'><a cl
 if (isset($_SESSION["user_id"])) {
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><span>Add to favorites</span></a></button></span></div> ";
     //add to cart position bayez randomly placed for testing <center>
+    // show quantity from cart table shomehwere on screen
     echo "<center><div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_cart.php?product_id=$product_id'><span>Add to cart</span></a></button></span></div></center>";
 
 } else {

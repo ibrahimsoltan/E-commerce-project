@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <style>
     body{
             background-color:#dae0e573/*light silver*/
@@ -175,7 +174,8 @@ if (isset($_SESSION["user_id"])) {
     $q = mysqli_query($db, "SELECT p.* FROM cart
     fp JOIN product p ON p.product_id = fp.product_id WHERE fp.user_id =$user_id ;");
     echo "<section class='undernav'>";
-    //add the product to naviagte to the product page
+    //add the product to naviagte to the cart page
+    //need to show quantity
     while ($row = mysqli_fetch_array($q)) {
         $product_id = $row['product_id'];
         echo "<div class='product'>";
