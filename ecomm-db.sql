@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 23, 2022 at 10:45 PM
+-- Generation Time: Dec 26, 2022 at 10:28 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -37,18 +37,23 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `product_id` (`product_id`),
   KEY `user_id` (`user_id`),
   KEY `user_id_2` (`user_id`,`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`user_id`, `product_id`, `cart_id`, `quantity`) VALUES
-(1, 1, 2, 2),
-(1, 14, 3, 1),
-(1, 15, 9, 1),
+(1, 1, 2, 5),
+(1, 14, 3, 4),
+(1, 15, 9, 4),
 (50, 22, 11, 1),
-(50, 23, 12, 1);
+(50, 23, 12, 1),
+(55, 14, 13, 3),
+(55, 1, 14, 3),
+(55, 15, 15, 1),
+(52, 1, 20, 4),
+(52, 14, 21, 2);
 
 -- --------------------------------------------------------
 
@@ -88,9 +93,18 @@ CREATE TABLE IF NOT EXISTS `liked_markets` (
   `market_id` int NOT NULL,
   `liked_markets_id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`liked_markets_id`),
+  UNIQUE KEY `user_id_2` (`user_id`,`market_id`),
   KEY `user_id` (`user_id`),
   KEY `market_id` (`market_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `liked_markets`
+--
+
+INSERT INTO `liked_markets` (`user_id`, `market_id`, `liked_markets_id`) VALUES
+(52, 3, 10),
+(52, 6, 11);
 
 -- --------------------------------------------------------
 
@@ -108,17 +122,36 @@ CREATE TABLE IF NOT EXISTS `market` (
   `market_phone` int NOT NULL,
   `market_photo` varchar(100) NOT NULL,
   `market_location` varchar(100) NOT NULL,
+  `market_balance` int NOT NULL,
+  `market_balance_no` int NOT NULL,
   PRIMARY KEY (`market_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `market`
 --
 
-INSERT INTO `market` (`market_id`, `market_name`, `market_email`, `market_address`, `market_password`, `market_phone`, `market_photo`, `market_location`) VALUES
-(3, 'market1', 'test@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh'),
-(5, 'market2', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio'),
-(6, 'market3', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio');
+INSERT INTO `market` (`market_id`, `market_name`, `market_email`, `market_address`, `market_password`, `market_phone`, `market_photo`, `market_location`, `market_balance`, `market_balance_no`) VALUES
+(3, 'market1', 'test@email', 'xfhb', '123', 416106, '4.png', 'dgcjhdh', 0, 0),
+(5, 'market2', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio', 0, 0),
+(6, 'market3', 'sdvfg', 'yoi', '8225', 75272, '4.png', 'uio', 0, 0),
+(7, 'adidas', 'market@rmail', 'asdgasg', '123', 416106, '', 'tyjnd', 0, 13254),
+(8, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(9, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(10, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(11, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(12, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(13, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(14, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(15, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(16, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(17, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(18, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(19, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(20, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(21, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(22, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563),
+(23, 'iyoi', 'ibrahimsoltan2000@gmail.com', 'Manial- Cairo', '123', 2147483647, '3.png', 'wwcv', 0, 45634563);
 
 -- --------------------------------------------------------
 
@@ -168,11 +201,29 @@ CREATE TABLE IF NOT EXISTS `product` (
 --
 
 INSERT INTO `product` (`product_name`, `product_brand`, `product_price`, `product_brief`, `product_description`, `product_count`, `product_photo`, `product_id`) VALUES
-('Jordan 1 Retro Royal sneaker', 'Nike', 1500, 'The Jordan 1 Retro Royal (2017) released in April of 2017 and retailed for $160.\n\n', 'The Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 10, '2.jfif', 1),
+('Jordan 1 Retro Royal sneaker', 'Nike', 1500, 'The Jordan 1 Retro Royal (2017) released in April of 2017 and retailed for $160.\n\n', 'The Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 5, '2.jfif', 1),
 ('Jordan 2 Retro Royal sneaker', 'Nike', 2500, 'The Jordan 2 Retro Royal (2018) released in April of 2018 and retailed for $160.\n\n', 'sadbThe Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 4, 'Sneakers1.jfif', 14),
 ('Jordan 3 Retro Royal sneaker', 'Adidas', 1000, 'The Jordan 3 Retro Royal (2019) released in April of 2019 and retailed for $160.\n\n', 'The Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 4, 'Sneakers3.jfif', 15),
 ('Jordan 4 Retro Royal sneaker', 'Nike', 1750, 'The Jordan 4 Retro Royal (2019) released in April of 2017 and retailed for $160.\n\n', 'The Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 2, 'Sneakers4.jfif', 22),
 ('Jordan 5 Retro Royal sneaker', 'Nike', 3000, 'The Jordan 5 Retro Royal (2020) released in April of 2020 and retailed for $160.\n\n', 'The Jordan 1 Retro Royal (2017) is one of the original Air Jordan 1 colorways that debuted in 1985. It features a black and blue leather upper, with the deep black tones acting as the base of the silhouette and giving way to the vibrant blues of Varsity Royal on the overlays. From there, a black \"Air Jordan\" wings logo contrasts nicely with the Varsity Royal on the collar, and a matching blue Nike \"Swoosh\" on the side completes the design.', 10, 'Sneakers5.jfif', 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `purchased_products`
+--
+
+DROP TABLE IF EXISTS `purchased_products`;
+CREATE TABLE IF NOT EXISTS `purchased_products` (
+  `product_id` int NOT NULL,
+  `quantity` int NOT NULL,
+  `user_id` int NOT NULL,
+  `purchase_id` int NOT NULL AUTO_INCREMENT,
+  `total_price` int NOT NULL,
+  PRIMARY KEY (`purchase_id`),
+  KEY `product_id` (`product_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -191,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_photo` varchar(200) NOT NULL DEFAULT '1000_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg',
   `user_id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `user`
@@ -203,7 +254,8 @@ INSERT INTO `user` (`user_email`, `user_password`, `user_name`, `user_address`, 
 ('test@email', '123', 'Amr Mourad', '6 October', '4th District, Building 1675', '01009980955', '1000_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg', 52),
 ('test2@email', '1234', 'cgnd', 'sdgsdg', 'dfsagf', '2542', '4.png', 53),
 ('test2@email', '1234', 'cgnd', 'sdgsdg', 'dfsagf', '2542', '4.png', 54),
-('amrmurad35@gmail.com', '123', 'amrmurad', 'Abd Elsalam Ameen', '4th District, Building 1675', '01009980955', '150-1503945_transparent-user-png-default-user-image-png-png.png', 55);
+('amrmurad35@gmail.com', '123', 'amrmurad', 'Abd Elsalam Ameen', '4th District, Building 1675', '01009980955', '150-1503945_transparent-user-png-default-user-image-png-png.png', 55),
+('ibrahimsoltan2000@gmail.com', '142', 'asdf', 'Manial- Cairo', '', '+201200572686', '', 84);
 
 --
 -- Constraints for dumped tables
@@ -236,6 +288,13 @@ ALTER TABLE `liked_markets`
 ALTER TABLE `market_products`
   ADD CONSTRAINT `market_products_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `market_products_ibfk_2` FOREIGN KEY (`market_id`) REFERENCES `market` (`market_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Constraints for table `purchased_products`
+--
+ALTER TABLE `purchased_products`
+  ADD CONSTRAINT `purchased_products_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `purchased_products_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

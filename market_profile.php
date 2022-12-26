@@ -9,7 +9,8 @@ $q = mysqli_query($db, "SELECT * FROM `market` WHERE market_id= '$Session'");
 
 echo "<table border = 2 width = 100% >";
 echo "<tr><th>market_email</th><th>market_password</th><th>market_name</th>
-<th>market_address</th><th>market_location</th><th>market_phone</th><th>market_photo</th>
+<th>market_address</th><th>market_location</th><th>market_phone</th><th>market_balance</th><th>market_balance_no</th><th>market_photo</th>
+
 </tr>";
 while ($row=mysqli_fetch_array($q )) {
     $user_id =$row['market_id'];
@@ -20,6 +21,8 @@ while ($row=mysqli_fetch_array($q )) {
     echo "<td>".$row['market_address'];
     echo "<td>".$row['market_location'];
     echo "<td>".$row['market_phone'];
+    echo "<td>".$row['market_balance'];
+    echo "<td>".$row['market_balance_no'];
     echo "<td><img src='images/".$row['market_photo']."' width='100' height='100'>";
 }
 echo "</table>";
