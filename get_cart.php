@@ -151,8 +151,8 @@ ul {
             session_start();
 
             if(isset($_SESSION['user_id'])){
-            echo '<li><a class="active" href="get_favorite_products.php">Favourite Products</a></li>';
-            echo '<li><a href="get_cart.php">Cart</a></li>';
+            echo '<li><a href="get_favorite_products.php">Favourite Products</a></li>';
+            echo '<li><a class="active" href="get_cart.php">Cart</a></li>';
             echo '<li><a href="view_all_markets.php">view markets</a></li>';
             echo '<li id="lastchild"><a href="profile.php">Profile</a></li>';
             }
@@ -178,6 +178,10 @@ if (isset($_SESSION["user_id"])) {
     //need to show quantity
     while ($row = mysqli_fetch_array($q)) {
         $product_id = $row['product_id'];
+        $q2 = mysqli_query($db, "SELECT * FROM `cart` WHERE `user_id` = $user_id AND `product_id` = $product_id");
+        $row2 = mysqli_fetch_array($q2);
+        $product_count  = mysqli_query($db, "SELECT * FROM `product` WHERE `product_id` = $product_id");
+        $product_count_row = mysqli_fetch_array($product_count);
         echo "<div class='product'>";
         echo "<center><div class='productimage'>
             <img src='images/" . $row['product_photo'] . "'>
@@ -185,6 +189,13 @@ if (isset($_SESSION["user_id"])) {
         echo "<div class='productinfo'>";
         echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
         echo "<center><p>" . $row['product_brief'] . "</p></center>";
+        echo "<center><p>Quantity: " . $row2['quantity'] . "</p></center>";
+    if ($product_count_row['product_count'] > $row2['quantity']) {
+      echo "<button class='button'><a href='add_quantity.php?product_id=$product_id' class='link'><span>Add Quantity </span></a></button>";
+    } else {
+      echo "<button class='button' disabled><span>Out of Stock </span></a></button>";
+    }
+        echo "<button class='button'><a href='reduce_quantity.php?product_id=$product_id' class='link'><span>Reduce Quantity </span></a></button>";
         echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
 
         echo"";
@@ -193,6 +204,8 @@ if (isset($_SESSION["user_id"])) {
         echo "</div>";
     }
     echo "</section>";
+    //purchase button
+    echo "<center><button class='button'><a href='purchase.php' class='link'><span>Purchase </span></a></button></center>";
 
     echo '<button class="button"><a href="index.php" class="link "><span>Back to Welcome Page</span></a></button>';
     mysqli_close($db);

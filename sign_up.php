@@ -2,6 +2,7 @@
 error_reporting(0);
  
 $msg = "";
+session_start();
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $user_email = $_POST['user_email'];
 $user_password = $_POST['user_password'];
@@ -9,7 +10,6 @@ $user_name = $_POST['user_name'];
 $user_address = $_POST['user_address'];
 $user_location = $_POST['user_location'];
 $user_phone = $_POST['user_phone'];
-$user_id = $row['user_id'];
 if (
     isset($_POST['user_email']) && !empty($_POST['user_email'])
     && isset($_POST['user_password']) && !empty($_POST['user_password'])
@@ -29,26 +29,24 @@ if (
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $sql_path = basename($_FILES["file"]["name"]);
 
-    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
-        echo "The file " . basename($_FILES["file"]["name"]) . " has been uploaded.";
-        echo "$target_file";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
+    move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
 
     $conn = mysqli_connect("localhost", "root", "", "ecomm-db");
 
     $image_path = $target_file;
 
     $sql = "UPDATE user SET user_photo='$sql_path' WHERE user_name='$user_name'";
+    //fetch the user_id of the user that was just inserted by user_email
+    $q = mysqli_query($db, $sql);
+    
 
-    if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
-        echo "<img src='" . $row["image_path"] . "'>";
-    } else {
-        echo "Error updating record: " . mysqli_error($conn);
-    }
-
+    
+            $sql2 = "SELECT user_id FROM user WHERE user_email = '$user_email'";
+            $row = mysqli_query($db, $sql2);
+            $row = mysqli_fetch_array($row);
+            $user_id = $row['user_id'];
+            $_SESSION['user_id'] = $user_id;
+            header("Location: profile.php");
 
 }
     

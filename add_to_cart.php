@@ -7,17 +7,31 @@ if (isset($_SESSION["user_id"])) {
     $q = mysqli_query($db, "SELECT * FROM `product` WHERE `product_id` = '$product_id'");
     $row = mysqli_fetch_array($q);
     $user_id = $_SESSION["user_id"];
-
-    $result = mysqli_query($db,"SELECT `product_id` FROM `cart` WHERE `product_id` = '$product_id'");
+    $result = mysqli_query($db,"SELECT `product_id` FROM `cart` WHERE `product_id` = $product_id AND `user_id` = $user_id");
     if(mysqli_num_rows($result) == 0) {
     $q = mysqli_query($db, "INSERT INTO
-    `cart` (`user_id`, `product_id`, `cart_id`,`quantity`) VALUES ('$user_id', '$product_id', NULL, '1');");
+    `cart` (`user_id`, `product_id`, `cart_id`,`quantity`) VALUES ($user_id, $product_id, NULL, 1);");
+        if ($q) {
+
+            mysqli_close($db);
+            header("Location: get_cart.php");
+        }
+        else{
+            echo "Error: " . $q . "<br>" . mysqli_error($db);
+        }
+
     }
     else {
     $q = mysqli_query($db, "UPDATE  `cart` SET quantity = quantity + 1
     WHERE product_id= '$product_id'");
-    mysqli_close($db);
-    header("Location: get_cart.php");
+    if ($q) {
+        mysqli_close($db);
+        header("Location: get_cart.php");
+    }
+    else{
+        echo "Error: " . $q . "<br>" . mysqli_error($db);
+    }
+   
     }
 }
 ?>
