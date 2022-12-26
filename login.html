@@ -42,7 +42,7 @@
 
         input[type=text]:focus{
             outline: none;
-            border-bottom: 1px solid ;
+            border-bottom: 1px solid gray;
         }
         button{
             transition-duration: 0.1s;
@@ -95,12 +95,12 @@
     <div id="content">
         <form method="POST" action="login.php" enctype="multipart/form-data">
             <h2>Welcome</h2>
-             <input type="text" placeholder="Email" name="user_email" required="true">
+             <input type="text" placeholder="Email" name="user_email" id="user_email" required="true">
             <br>
-            <input type="text" placeholder="Password" name="user_password" required="true">
+            <input type="text" placeholder="Password" name="user_password" id="user_password" required="true">
             <br>
         <div>
-            <button type='submit' name='sign_in'>LOG IN</button></div>
+            <button type='submit' name='sign_in' id="submit-btn">LOG IN</button></div>
            <!-- <div> <a href="index.php" class="bar-item button">back</a></div> -->
            <div id="footer">Don't have an account?<a href="sign_up.html">Sign Up</a></div>
         </form>
@@ -109,3 +109,28 @@
 
 </body>
 </html>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(function() {
+    $("#submit-btn").click(function() {
+      var inputEmail = $("#user_email");
+      var inputPassword = $("#user_password");
+
+      if (inputEmail.val() == "" || inputPassword.val() == "") {
+        if(inputEmail.val() == "")
+            inputEmail.css("border-color", "#DC143C");
+        if(inputPassword.val() == "")
+            inputPassword.css("border-color", "#DC143C");
+
+        setTimeout(function() {
+          inputEmail.css("border-color", "");
+          inputPassword.css("border-color", "");
+        }, 2000); // remove border after 2 seconds
+        return false;
+      }
+      return true;
+    });
+  });
+</script>

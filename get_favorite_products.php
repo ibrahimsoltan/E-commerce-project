@@ -55,14 +55,15 @@ ul {
 
   .navbar{
     top: 0;
-    width: 98.5%;
+    left: 0;
+    width: 100%;
     position: fixed;
     
   }
 
   .undernav {
-    padding:20px;
     margin-top:30px;
+    padding:30px;
     display:flex;
     flex-wrap: wrap;
     align-items:center; 
@@ -87,12 +88,9 @@ ul {
 }
 
 .productimage img {
-  max-width: 100%;
+  max-width: 80%;
+  max-height:150
 }
-
-/* .productinfo {
-  margin-top: auto;
-} */
 
 .button {
   display: inline-block;
@@ -141,6 +139,11 @@ ul {
     font-weight: bold;
 }
 
+.brief{
+    font-size: 8pt;
+    color: #505050;
+}
+
 </style>
 </head>
 
@@ -164,7 +167,6 @@ ul {
             }
             ?>
             </ul>
-        <h1 class='undernav'> Favourite Products</h1>
 </div>
 
 <?php
@@ -183,7 +185,7 @@ if (isset($_SESSION["user_id"])) {
             </div></center>";
         echo "<div class='productinfo'>";
         echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
-        echo "<center><p>" . $row['product_brief'] . "</p></center>";
+        echo "<center><p class='brief'>" . $row['product_brief'] . "</p></center>";
         echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
 
         echo"";

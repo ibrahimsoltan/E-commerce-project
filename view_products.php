@@ -66,6 +66,7 @@ ul {
     display:flex;
     flex-wrap: wrap;
     align-items:center; 
+
     justify-content: center;
   }
 
@@ -149,12 +150,10 @@ ul {
   height: 100%;
   width: 0px;
   position: fixed;
-  z-index: 1;
   top: 0;
   left: 0;
   background-color: #dae0e573;
-  overflow-x: hidden;
-  padding-top: 60px;
+  padding-top: 20px;
   overflow-x: hidden;
   transition: 0.5s;
   margin-top: 46px;
@@ -166,21 +165,25 @@ ul {
 }
 
 .sidenav a {
-  padding: 8px 8px 8px 32px;
+  margin:0;
+  padding: 0px 0px 0px 0px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
-  display: block;
+  display: inline;
   transition: 0.3s;
 }
 
 .sidenav img{
+  margin:0;
+
   padding: 8px 8px 0px 32px;
   text-decoration: none;
   font-size: 25px;
   color: #818181;
   display: inline;
   transition: 0.3s;
+  top:0;
 }
 
 .sidenav span {
@@ -190,6 +193,7 @@ ul {
   color: #818181;
   display: inline;
   transition: 0.3s;
+  top:0;
 }
 
 
@@ -207,7 +211,7 @@ ul {
 }
 
 select{
-  margin-right: 10px;
+  margin-right: 0px;
   margin-bottom: 10px;
 }
 
@@ -242,7 +246,6 @@ select{
   else{
       echo '<li id="lastchild"><a href="login.html">Login</a></li>';
       echo '<li id="lastchild"><a href="sign_Up.html">Sign up</a></li>';
-
   }
   ?>
   </ul>
@@ -254,22 +257,20 @@ select{
   <img src="https://cdna.iconscout.com/img/filters.75dacdc.svg" width="24" alt="Filter icon" class="mr-2">
   <span>Filters</span>
   <form method="get" class='undernav'>
-  <br>
-  <p>Search  </p>
   <input type="text" name="search" placeholder="Search..">
   <br>
-    
   <select name="sort_by">
-    <option value="product_name">Name</option>
-    <option value="product_price">Price</option>
+    <option style="font-size: 9pt; text-align:center;" value="" disabled selected="selected">--Sort--</option>
+    <option style="text-align:center;" value="product_name">Name</option>
+    <option style="text-align:center;" value="product_price">Price</option>
   </select>
   <select name="order">
-    <option value="ASC">Ascending</option>
-    <option value="DESC">Descending</option>
+    <option style="font-size: 9pt; text-align:center;" value="" disabled selected="selected">--Type--</option>
+    <option style="text-align:center;" value="ASC">Ascending</option>
+    <option style="text-align:center;" value="DESC">Descending</option>
   </select>
-  <br>
   <input type="submit" value="Sort">
-  </form>
+</form>
 </div>
 
 
@@ -283,36 +284,41 @@ $sort_by = isset($_GET['sort_by']) ? $_GET['sort_by'] : 'product_name';
 $order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
+
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $q = mysqli_query($db, "SELECT * FROM `product` ORDER BY $sort_by $order");
 if($search != ''){
-    $q = mysqli_query($db, "SELECT * FROM `product` WHERE LOWER(product_name) LIKE LOWER('%$search%') ORDER BY $sort_by $order");
-  if (mysqli_num_rows($q) == 0) {
-    echo "<h1 class='undernav'>No results found</h1>";
-  }
-  }
-    echo "<section id='besidenav' class='undernav besidenav'>";
-    while ($row = mysqli_fetch_array($q)) {
-        echo "<div id='besidenav' class='product' >";
-        echo "<center><div class='productimage'>
-            <img src='images/" . $row['product_photo'] . "'>
-            </div></center>";
-        $product_id = $row['product_id'];
-        echo "<div class='productinfo'>";
-        echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
-        echo "<center><p class='brief'>" . $row['product_brief'] . "</p></center>";
-        echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
-        echo "</div>";
-        echo "</div>";
-    
-    }
-    echo "</section>";
-    
-    echo '<button class="button"><a href="index.php" class="link "><span>Back to Welcome Page</span></a></button>';
-    mysqli_close($db);
-    
+  $q = mysqli_query($db, "SELECT * FROM `product` WHERE LOWER(product_name) LIKE LOWER('%$search%') ORDER BY $sort_by $order");
+}
+//add the product to naviagte to the product page
+echo "<section id='besidenav' class='undernav besidenav'>";
+while ($row = mysqli_fetch_array($q)) {
+    echo "<div class='product' >";
+    echo "<center><div class='productimage'>
+        <img src='images/" . $row['product_photo'] . "'>
+        </div></center>";
+    $product_id = $row['product_id'];
+    echo "<div class='productinfo'>";
+    echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
+    echo "<center><p class='brief'>" . $row['product_brief'] . "</p></center>";
+    echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
 
 
+    echo "</div>";
+    echo "</div>";
+
+}
+echo "</section>";
+
+echo '<button class="button"><a href="index.php" class="link "><span>Back to Welcome Page</span></a></button>';
+mysqli_close($db);
+if (isset($_SESSION["user_id"])) {
+
+}
+
+else {
+
+}
 
 ?>
 
@@ -324,8 +330,8 @@ if($search != ''){
 <script>
   const boxes = document.querySelectorAll('.besidenav');
 function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  boxes.forEach(box => box.style.marginLeft = "260px");
+  document.getElementById("mySidenav").style.width = "200px";
+  boxes.forEach(box => box.style.marginLeft = "210px");
   document.getElementById("opensidenav").style.visibility = "hidden";
 
 }
@@ -338,3 +344,36 @@ function closeNav() {
 
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

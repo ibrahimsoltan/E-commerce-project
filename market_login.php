@@ -20,7 +20,7 @@ if (isset($user_email) && isset($user_password) )
             $_SESSION["market_id"]=$row["market_id"];
             echo "Welcome ".$user_email;
             echo '<p><a href="market_profile.php" class="bar-item button">profile</a></p>';
-
+            header("Location: market_profile.php");
 
             }
             else

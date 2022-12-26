@@ -1,5 +1,5 @@
 <?php 
-$product_id = $_GET['product_id'];
+$market_id = $_GET['market_id'];
 session_start();
 
 if (isset($_SESSION["user_id"])) {

@@ -51,6 +51,12 @@ input[type=text]{
     border-right: 0px;
 }
 
+
+input[type=text]:focus{
+            outline: none;
+            border-bottom: 1px solid gray;
+        }
+
 button{
     transition-duration: 0.1s;
     padding: 10px 10px;
@@ -117,17 +123,17 @@ label {
         <form method="POST" action="sign_up.php" enctype="multipart/form-data">
             <img src="images/Unknown_person.jpg" alt="Unkown user">
             <h2>Sign up</h2>
-            <input type="text" placeholder="Email*" name="user_email" required="true">
+            <input type="text" placeholder="Email*" name="user_email" id="user_email" required="true">
             <br>
-            <input type="text" placeholder="Password*" name="user_password" required="true">
+            <input type="text" placeholder="Password*" name="user_password" id="user_password" required="true">
             <br>
-            <input type="text" placeholder="Username*" name="user_name" required="true">
+            <input type="text" placeholder="Username*" name="user_name" id="user_name" required="true">
             <br>
-            <input type="text" placeholder="Address*" name="user_address" required="true">
+            <input type="text" placeholder="Address*" name="user_address" id="user_address" required="true">
             <br>
             <input type="text" placeholder="Location" name="user_location"> 
             <br>
-            <input type="text" placeholder="Phone*" name="user_phone" required="true">
+            <input type="text" placeholder="Phone*" name="user_phone" id="user_phone" required="true">
             <br>
               <input id="file" name="file" type="file"/>
             </label>
@@ -137,10 +143,46 @@ label {
         </label> -->
             <br>
             <br>
-            <button type='submit' name='sign_in'>sign up</button>
-            <a href="index.php" class="bar-item button">back</a>
+            <button type='submit' name='sign_in' id="submit-btn">sign up</button>
         </form>
     </div>
 </body>
 </center>
 </html>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(function() {
+    $("#submit-btn").click(function() {
+      var inputEmail = $("#user_email");
+      var inputPassword = $("#user_password");
+      var inputName = $("#user_name");
+      var inputAddress = $("#user_address");
+      var inputPhone = $("#user_phone");
+
+
+      if (inputEmail.val() == "" || inputPassword.val() == "" || inputName.val() == "" || inputAddress.val() == "" || inputPhone.val() == "") {
+        if(inputEmail.val() == "")
+            inputEmail.css("border-color", "#DC143C");
+        if(inputPassword.val() == "")
+            inputPassword.css("border-color", "#DC143C");
+        if(inputName.val() == "")
+            inputName.css("border-color", "#DC143C");
+        if(inputAddress.val() == "")
+            inputAddress.css("border-color", "#DC143C");
+        if(inputPhone.val() == "")
+            inputPhone.css("border-color", "#DC143C");
+
+        setTimeout(function() {
+          inputEmail.css("border-color", "");
+          inputPassword.css("border-color", "");
+          inputName.css("border-color", "");
+          inputAddress.css("border-color", "");
+          inputPhone.css("border-color", "");
+        }, 2000); // remove border after 2 seconds
+        return false;
+      }
+      return true;
+    });
+  });
+</script>

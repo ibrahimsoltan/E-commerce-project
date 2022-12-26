@@ -1,11 +1,9 @@
 <?php
-session_start();
-
-if (isset($_SESSION["market_id"])) {
+$market_id = $_GET['market_id'];
     $db = mysqli_connect("localhost", "root", "", "ecomm-db");
     $user_id = $_SESSION["market_id"];
     echo "<h1>Market Products</h1>";
-    $q = mysqli_query($db, "SELECT p.* FROM market_products fp JOIN product p ON p.product_id = fp.product_id WHERE fp.market_id =$user_id ;");
+    $q = mysqli_query($db, "SELECT p.* FROM market_products fp JOIN product p ON p.product_id = fp.product_id WHERE fp.market_id =$market_id ;");
     echo "<table border = 2 width = 100% >";
     echo "<tr><th>product_name</th><th>product_price</th><th>product_brief</th>
     <th>product_description</th><th>product_photo</th>
@@ -24,10 +22,5 @@ if (isset($_SESSION["market_id"])) {
     echo '<p><a href="index.php" class="bar-item button">back</a></p>';
     echo '<p><a href="logout.php" class="bar-item button">log out</a></p>';
     mysqli_close($db);
-}
-    
-    else {
-        echo "You are not logged in";
-    }
 
 ?>

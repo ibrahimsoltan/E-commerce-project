@@ -196,6 +196,14 @@ ul {
     bottom: 0;
 }
 
+.imgnav{
+    width: 35px;
+    height: 40px;
+    border-radius: 30px;
+    padding-right: 5px;
+    padding-top: 3px;
+
+}
 
 
 
@@ -211,9 +219,13 @@ ul {
 
             if(isset($_SESSION['user_id'])){
             echo '<li><a href="get_favorite_products.php">Favourite Products</a></li>';
-            echo '<li><a href="get_cart.php">Cart</a></li>';
-            echo '<li><a href="view_all_markets.php">view markets</a></li>';
-            echo '<li id="lastchild"><a class="active" href="profile.php">Profile</a></li>';
+            echo '<li><a href="#Cart">Cart</a></li>';
+            $Session=$_SESSION["user_id"];
+            $db = mysqli_connect("localhost", "root", "", "ecomm-db");
+            $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
+            while ($row=mysqli_fetch_array($q )) {
+              echo "<li id='lastchild'> <img class='imgnav' src='images/".$row['user_photo']."'> </li>";
+            }
             }
             else{
                 echo '<li id="lastchild"><a href="login.html">Login</a></li>';
@@ -236,7 +248,7 @@ $Session=$_SESSION["user_id"];
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
 
-while ($row=mysqli_fetch_array($q)) {
+while ($row=mysqli_fetch_array($q )) {
     echo "<div class=' image'> <img class='undernav' src='images/".$row['user_photo']."'> </div>";
 
     echo "<div class='grid-item name'><span id='firstchild'><strong>Name</strong></span> <span id='lastchild'>".$row['user_name'] . "</span></div>";
@@ -248,11 +260,6 @@ while ($row=mysqli_fetch_array($q)) {
     echo "<div class='editbutton'><span id='firstchild'><button class='button'><a class='link' href='edit_profile.php'><span>Edit Profile</span></a></button></span></div> ";
     echo "<div class='productsbutton'><span id='lastchild'><button class='button'><a class='link' href='view_products.php'><span>Products</span></a></button>
     <button class='button'><a class='link' href='get_favorite_products.php'><span>Favourite Products</span></a></button></span></div> ";
-
-    //cart position bayez randomly placed for testing <center>
-    echo "<center><div class='productsbutton'><span id='lastchild'>
-    <button class='button'><a class='link' href='get_cart.php'><span>cart</span></a></button></span></div></center>";
-
 
     
     echo "</div>";
@@ -267,8 +274,7 @@ mysqli_close($db);
 }
 else
 {
-	echo $Session;
-    echo "You are not logged in";
+	header("Location: index.php");
 }
 ?>
 </body>

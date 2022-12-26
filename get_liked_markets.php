@@ -172,20 +172,21 @@ ul {
 if (isset($_SESSION["user_id"])) {
     $db = mysqli_connect("localhost", "root", "", "ecomm-db");
     $user_id = $_SESSION["user_id"];
-    $q = mysqli_query($db, "SELECT p.* FROM liked_markets fp JOIN market p ON p.market_id = fp.market_id WHERE fp.user_id =$user_id;");
+    $q = mysqli_query($db, "SELECT * FROM `liked_markets` WHERE `user_id` = $user_id;");
     echo "<section class='undernav'>";
     //add the market to naviagte to the liked markets page
     while ($row = mysqli_fetch_array($q)) {
         $market_id = $row['market_id'];
+        $q2 = mysqli_query($db, "SELECT * FROM `market` WHERE `market_id` = $market_id;");
+        $row2 = mysqli_fetch_array($q2);
         //fix to show markets instead of product
         echo "<div class='product'>";
         echo "<center><div class='productimage'>
-            <img src='images/" . $row['product_photo'] . "'>
+            <img src='images/" . $row2['market_photo'] . "'>
             </div></center>";
         echo "<div class='productinfo'>";
-        echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
-        echo "<center><p>" . $row['product_brief'] . "</p></center>";
-        echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
+        echo " <span class='title'>". $row2['market_name'] . "</span> <span id='lastchild' class='value'>";
+        echo "<button class='button'><a href='products_of_market.php?market_id=$market_id' class='link'><span>View Market Products </span></a></button>";
         echo"";
 
         echo "</div>";
