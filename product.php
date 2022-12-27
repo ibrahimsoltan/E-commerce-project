@@ -222,26 +222,29 @@ $product_id = $_GET['product_id'];
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $q = mysqli_query($db, "SELECT * FROM `product` WHERE product_id = $product_id");
 while ($row = mysqli_fetch_array($q)) {
-    $product_id = $row['product_id'];
-    echo "<div class='image'> <img class='undernav' src='images/".$row['product_photo']."'> </div>";
-    echo "<div class=' nameprice'><h2>".$row['product_name'] . "</h2>
-     <p id='price'>".$row['product_price']. "EGP</p></div>";
-   
-    echo "<div class='description'><p id='firstchild'>".$row['product_description']."</p></div>";
-    
-}
-echo "</table>";
-echo "<div class='backbutton'><span id='firstchild'><button class='button'><a class='link' href='index.php'><span>Back To Home Page</span></a></button></span></div> ";
-if (isset($_SESSION["user_id"])) {
-    echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><span>Add to favorites</span></a></button></span></div> ";
-    //add to cart position bayez randomly placed for testing <center>
-    // show quantity from cart table shomehwere on screen
-    echo "<center><div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_cart.php?product_id=$product_id'><span>Add to cart</span></a></button></span></div></center>";
+  $product_id = $row['product_id'];
+  echo "<div class='image'> <img class='undernav' src='images/" . $row['product_photo'] . "'> </div>";
+  echo "<div class=' nameprice'><h2>" . $row['product_name'] . "</h2>
+     <p id='price'>" . $row['product_price'] . "EGP</p></div>";
+  echo "<div class='description'><p id='firstchild'>" . $row['product_description'] . "</p></div>";
 
-} else {
+
+  echo "</table>";
+  echo "<div class='backbutton'><span id='firstchild'><button class='button'><a class='link' href='index.php'><span>Back To Home Page</span></a></button></span></div> ";
+  if (isset($_SESSION["user_id"])) {
+    echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><span>Add to favorites</span></a></button></span></div> ";
+
+
+    if ($row['product_count'] > 0) {
+      echo "<center><div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_cart.php?product_id=$product_id'><span>Add to cart</span></a></button></span></div></center>";
+    } else {
+      echo "<center><div class='addfavbutton'><span id='lastchild'><button class='button' disabled><span>Out of stock</span></a></button></span></div></center>";
+    }
+  } else {
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='login.html'><span>Login to add to favorites</span></a></button></span></div> ";
 
-}    
+  }
+}
 mysqli_close($db);
 ?>
 

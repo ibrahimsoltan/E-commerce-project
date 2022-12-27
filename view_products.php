@@ -303,7 +303,6 @@ while ($row = mysqli_fetch_array($q)) {
     echo "<center><p class='brief'>" . $row['product_brief'] . "</p></center>";
     echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
 
-
     echo "</div>";
     echo "</div>";
 
