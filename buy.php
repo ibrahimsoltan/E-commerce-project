@@ -35,7 +35,8 @@ if (isset($_SESSION["user_id"])) {
         //delete from cart
     $cart_id = $row['cart_id'];
     $q6 = mysqli_query($db, "DELETE FROM `cart` WHERE `cart`.`cart_id` = '$cart_id'");   
-    }
+        $q7 = mysqli_query($db, "INSERT INTO `purchased_products` (`product_id`, `quantity`, `user_id`, `purchase_id`, `total_price`) VALUES ($product_id, $product_quantity, $user_id, NULL, $product_total);");
+}
     
     if ($q6) {
         mysqli_close($db);

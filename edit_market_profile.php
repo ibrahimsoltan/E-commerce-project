@@ -118,35 +118,35 @@
 <body>
         <?php
         session_start();
-        $Session=$_SESSION["user_id"];
+        $Session=$_SESSION["market_id"];
         $db = mysqli_connect("localhost", "root", "", "ecomm-db");
-        $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
+        $q = mysqli_query($db, "SELECT * FROM `market` WHERE market_id= '$Session'");
         $row=mysqli_fetch_array($q);
         ?>
     <div id="content">
-        <form method="POST" action="edit_profile_action.php" enctype="multipart/form-data">
+        <form method="POST" action="edit_market_profile_action.php" enctype="multipart/form-data">
         
             <div id='profile-pic'>
-                <img src="images/<?php echo $row['user_photo'];?>" width="100" height="100">
+                <img src="images/<?php echo $row['market_photo'];?>" width="100" height="100">
                 <br>
                 <h2>Edit profile</h2>
             </div>
             <br>
-            <input type="text" name="user_email" placeholder='Email' value='<?php echo $row['user_email'];?>'>
+            <input type="text" name="user_email" placeholder='Email' value='<?php echo $row['market_email'];?>'>
             <br>
-            <input type="text" name="user_password" placeholder='Password' value='<?php echo $row['user_password'];?>'>
+            <input type="text" name="user_password" placeholder='Password' value='<?php echo $row['market_password'];?>'>
             <br>
-            <input type="text" name="user_name" placeholder='Name' value='<?php echo $row['user_name'];?>'>
+            <input type="text" name="user_name" placeholder='Name' value='<?php echo $row['market_name'];?>'>
             <br>
-            <input type="text" name="user_address" placeholder='Address' value='<?php echo $row['user_address'];?>'>
+            <input type="text" name="user_address" placeholder='Address' value='<?php echo $row['market_address'];?>'>
             <br>
-            <input type="text" name="user_location" placeholder='Location' value='<?php echo $row['user_location'];?>'>
+            <input type="text" name="user_location" placeholder='Location' value='<?php echo $row['market_location'];?>'>
             <br>
-            <input type="text" name="user_phone" placeholder='Phone Number' value='<?php echo $row['user_phone'];?>'>
+            <input type="text" name="user_phone" placeholder='Phone Number' value='<?php echo $row['market_phone'];?>'>
             <br>
             <!-- <label for="file">Select an image to upload:</label> -->
             <br>
-            <input type="file" name="file" id="file" for="file">
+            <input type="file" name="file" id="file" for="file" value="$row['market_photo']">
             <br>
             <button type='submit' name='edit'>apply</button>
             <a href="index.php" class="bar-item button">back</a>
