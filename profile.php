@@ -1,18 +1,17 @@
+<?php session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- <link rel='stylesheet' type='text/css' href='nav_bar2.css'> -->
 
 <style>
-    body{
-        background-color: #dae0e573;
+  
+body{
+            background-color:#f7f7f773
         }
     #lastchild {
     float: right;
-  }
-
-  #firstchild {
-    float: left;
   }
 
 ul {
@@ -21,7 +20,8 @@ ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
-
+    display: inline-block;
+  
   }
 
   .title{
@@ -36,37 +36,47 @@ ul {
     color: gray;
   }
   
-  li {
+  .left {
     float: left;
-    
+  }
+
+  li{
+      display: inline-block;
+
   }
   
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
+  li .text {
+    display: inline-block;
+    color: black;
     padding: 14px 16px;
     text-decoration: none;
     
   }
-  
-  li a:hover {
-    background-color: #111;
+
+
+  .text:hover {
+    border-bottom: 3px solid black;
   }
 
   .active {
-    background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
+    border-bottom: 3px solid black;
   }
 
   .navbar{
     top: 0;
-    width: 98.5%;
+    left: 0;
+    width: 100%;
     position: fixed;
-    
+    z-index: 1;  /* add this line */
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
   }
 
   section.undernav {
-    padding:100px;
+    padding-top:100px;
+    padding-left: 100px;
+    padding-right: 100px;
     margin-top:30px;
     width: 85%;    
   }
@@ -138,8 +148,13 @@ ul {
 }
 
 .grid-item {
+<<<<<<< Updated upstream
   background-color: #f9f9f9;
   font-size: 30px;
+=======
+  background-color: white;
+  font-size: 20px;
+>>>>>>> Stashed changes
   padding: 10px 20px 10px 20px;
 }
 
@@ -154,7 +169,7 @@ ul {
 }
 
 .name {
-  grid-column: 1 / span 2;
+  grid-column: 1 / span 1;
   grid-row: 2;
 }
 
@@ -177,8 +192,8 @@ ul {
   grid-row: 4;
 }
 .phone {
-  grid-column: 1 / span 2;
-  grid-row: 5;
+  grid-column: 2 / span 1;
+  grid-row: 2;
 }
 
 .editbutton{
@@ -196,8 +211,118 @@ ul {
     bottom: 0;
 }
 
+<<<<<<< Updated upstream
+=======
+.imgnav{
+    width: 45px;
+    height: 35px;
+    border-radius: 100px;
+    padding-right: 5px;
+    padding-top: 3px;
+    margin-top: 5px;
+    cursor: pointer;
+
+}
+.marketcard {
+  padding: 2%;
+  flex: 1 16%;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
+  padding: 25px;
+  margin: 15px;
+  flex-basis: 500px;
+  max-width:250px;
+  transition: 0.5s ease;
+  background-color: white;
+}
+
+.marketcard:hover{
+  transform: scale(1.1);
+}
+
+.marketimage img {
+  max-width: 200px;
+  height: 180px;
+}
+
+.allmarkets {
+    display:flex;
+    flex-wrap: wrap;
+    width: 85%;
+    padding-top:20px;
+    justify-content: center;
+  }
+
+.markettitle {
+  font-size: 15pt ;
+    font-weight: bold;
+    display: block;
+}
+.link{
+    color:white;
+    font-weight: bold;
+}
+.marketphone{
+  float: right;
+}
+.marketaddress{
+  float: left;
+}
+#componentAnchor{
+  text-decoration: none;
+  color: black;
+}
+
+.purchasedproductundernav {
+    margin-top:30px;
+    padding:30px;
+    display:flex;
+    flex-wrap: wrap;
+    align-items:center; 
+    justify-content: center;
+  }
 
 
+.purchasedproductgrid-container {
+  display: grid;
+  width: 70%;
+  height: 70px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  background-color: white;
+  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
+  align-items: center;
+}
+
+.productimage {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+  text-align: center;
+  vertical-align: middle;  
+}
+
+.purchasedproductname {
+  grid-column: 2 ;
+  grid-row: 1;
+}
+
+.purchasedproductquantity {
+  grid-column: 3 ;
+  grid-row: 1 / span 2;
+}
+
+.purchasedproducttotalprice {
+  grid-column: 4 ;
+  grid-row: 1 / span 2;
+}
+>>>>>>> Stashed changes
+
+.purchasedproductimage  {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+
+}
 
 </style>
 </head>
@@ -205,26 +330,53 @@ ul {
 <body>
 <div >
 <ul class="navbar">
-            <li><a href="view_products.php">Home</a></li>
+
             <?php
-            session_start();
+            echo '<li class="left" style="padding-left:10px;"><a href="view_products.php"><img style="width:100px; height:50px" src="images/flightclub2.jpg"></a></li>';
+            echo '<center><li><a class="text"href="view_all_markets.php">Markets</a></li>';
+
 
             if(isset($_SESSION['user_id'])){
+<<<<<<< Updated upstream
             echo '<li><a href="get_favorite_products.php">Favourite Products</a></li>';
             echo '<li><a href="#Cart">Cart</a></li>';
             echo '<li id="lastchild"><a class="active" href="profile.php">Profile</a></li>';
+=======
+              echo '<li ><a class="text" href="get_favorite_products.php">Favourite Products</a></li>';
+              echo '<li><a class="text" href="get_cart.php">Cart</a></li></center>';
+
+
+            $Session=$_SESSION["user_id"];
+            $db = mysqli_connect("localhost", "root", "", "ecomm-db");
+            $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
+            while ($row=mysqli_fetch_array($q )) {
+              echo "<li id='lastchild'><a class='text' href='profile.php'>Profile</a></li>";
+
+            }
+>>>>>>> Stashed changes
             }
             else{
-                echo '<li id="lastchild"><a href="login.html">Login</a></li>';
-                echo '<li id="lastchild"><a href="sign_Up.html">Sign up</a></li>';
+                echo '<li id="lastchild"><a class="text" href="login.html">Login</a></li>';
+                echo '<li id="lastchild"><a class="text" href="sign_Up.html">Sign up</a></li>';
 
             }
             ?>
             </ul>
+            <script>
+              document.getElementById('profile').addEventListener('click', function() {
+                // Navigate to the profile page
+                window.location.href = 'profile.php';
+              });
+            </script>
 </div>
-        <section class='undernav'>
-        <center>
 
+
+
+
+
+
+        <section class='undernav'>
+      
         <div class='grid-container'>
         <div class= 'title'><h1 class='undernav' style='float:left'> Profile</h1></div>
 <?php
@@ -245,17 +397,12 @@ while ($row=mysqli_fetch_array($q )) {
     echo "<div class='grid-item location'><span id='firstchild'><strong>Location</strong></span><span id='lastchild'>".$row['user_location'] ."</span></div> ";
     echo "<div class='grid-item phone'><span id='firstchild'><strong>Phone Number</strong></span><span id='lastchild'>".$row['user_phone'] ."</span></div> ";
     echo "<div class='editbutton'><span id='firstchild'><button class='button'><a class='link' href='edit_profile.php'><span>Edit Profile</span></a></button></span></div> ";
-    echo "<div class='productsbutton'><span id='lastchild'><button class='button'><a class='link' href='view_products.php'><span>Products</span></a></button>
-    <button class='button'><a class='link' href='get_favorite_products.php'><span>Favourite Products</span></a></button></span></div> ";
-
+    
     
     echo "</div>";
-    echo "</center>";
     
     echo "<button class='button logoutbutton'><a class='link' href='logout.php'><span>Logout</span></a></button>";
 }
-
-
 
 mysqli_close($db);
 }
@@ -264,6 +411,108 @@ else
 	header("Location: index.php");
 }
 ?>
+</section>
+
+
+
+
+
+
+
+
+
+
+<h1 style="padding-left:100px; padding-top:20px">Liked Markets</h1>
+<center>
+<?php
+error_reporting(0);
+session_start();
+
+$msg = "";
+$db = mysqli_connect("localhost", "root", "", "ecomm-db");
+$q = mysqli_query($db, 'SELECT * FROM `market`');
+echo "<section  class='allmarkets'>";
+while ($row=mysqli_fetch_array($q)) {
+  // echo "<a id='componentAnchor' href='market_profile.php'";
+  echo "<div class='marketcard' >";
+    $market_id =$row['market_id'];
+    echo "<center><div class='marketimage'>
+        <img src='images/" . $row['market_photo'] . "'>
+        </div></center>";
+    echo " <span class='markettitle'>". $row['market_name'] . "</span> <span id='lastchild' class='value'>". "</span>";
+    
+    echo " <span class='marketphone'>". $row['market_phone'] . "</span> <span id='lastchild' class='value'>". "</span>";
+    echo " <span class='marketaddress'>". $row['market_address'] . "</span> <span id='lastchild' class='value'>". "</span>";    
+    echo "<br>";
+    // echo"</a>";
+//     if (isset($_SESSION["user_id"]))
+// {
+//     echo "<button class='button'><a href='add_to_liked_markets.php?market_id=$market_id' class='link'><span>add to liked markets </span></a></button>";
+// }
+// else{
+//     echo "<button class='button'><a href='add_to_liked_markets.php?market_id=$market_id' class='link'><span>add to liked markets </span></a></button>";
+// }
+echo "</div>";
+}
+
+echo "</section>";
+
+
+
+
+mysqli_close($db);
+
+?>
+
+
+</center>
+
+<h1 style="padding-left:100px; padding-top:20px">Purchased Products</h1>
+  <section class='purchasedproductundernav'>
+  <?php 
+session_start();
+if (isset($_SESSION["user_id"])) {
+    $db = mysqli_connect("localhost", "root", "", "ecomm-db");
+    $user_id = $_SESSION["user_id"];
+    $order_no = 1;
+    $q = mysqli_query($db, "SELECT * FROM `purchased_products` WHERE `user_id` = $user_id");
+    while($row = mysqli_fetch_array($q)){
+        $purchase_id = $row['purchase_id'];
+        $order_no++;
+        $q2 = mysqli_query($db, "SELECT * FROM `purchased_products` WHERE `purchase_id` = $purchase_id");
+        while($row2 = mysqli_fetch_array($q2)){
+            $product_id = $row2['product_id'];
+            $q3 = mysqli_query($db, "SELECT * FROM `product` WHERE `product_id` = $product_id");
+            $row3 = mysqli_fetch_array($q3);
+            $total_price_of_product = $row2['quantity'] * $row3['product_price'];
+
+            echo "<div class='purchasedproductgrid-container'>";
+            echo "<center><div class='productimage'>
+            <img class='purchasedproductimage' src='images/" . $row3['product_photo'] . "'>
+            </div></center>";
+        
+            echo " <span class='purchasedproductname'> <div>". $row3['product_name'] . "</div>
+               <div class='value'>" .  $row3['product_price']  . "EGP</div> </span> ";
+        
+            echo "<div class='purchasedproductquantity'>";
+            echo "<span class=quan>".$row2['quantity'] . "</span>";
+            echo "</div> ";
+
+            echo "<div class='purchasedproducttotalprice'>";
+            echo "<span class='brief'>". $row['product_price']. " X " . $row2['quantity'] . "</span>";
+            echo "<span > = ". $total_price_of_product . "EGP</span>";
+            echo "</div>";
+            echo "</div>";
+            echo "<br>";
+
+
+        }
+    }
+}
+?>
+  </section>
+
+
 </body>
 
 </html>

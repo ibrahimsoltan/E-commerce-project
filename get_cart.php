@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <style>
-     body{
+    body{
             background-color:#f7f7f773
         }
     #lastchild {
@@ -60,7 +59,8 @@ ul {
 
   .navbar{
     top: 0;
-    width: 98.5%;
+    left: 0;
+    width: 100%;
     position: fixed;
     z-index: 1;  /* add this line */
     background-color: white;
@@ -68,40 +68,71 @@ ul {
     justify-content: space-between;
   }
 
+
   .undernav {
-    padding:20px;
     margin-top:30px;
+    padding:30px;
     display:flex;
     flex-wrap: wrap;
     align-items:center; 
     justify-content: center;
   }
 
-  .product {
-  padding: 2%;
-  flex: 1 16%;
+
+.grid-container {
+  display: grid;
+  width: 70%;
+  height: 70px;
   border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
-  padding: 25px;
-  margin: 15px;
-  flex-basis: 500px;
-  max-width:250px;
-  transition: 0.5s ease;
+  margin-bottom: 5px;
   background-color: white;
+  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
+  /*make it centered in the height */;
+  align-items: center;
+}
+
+.image {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 2;
+  text-align: center;
+  vertical-align: middle;  
+}
+
+.name {
+  grid-column: 2 ;
+  grid-row: 1;
+}
+
+.quantity {
+  grid-column: 3 ;
+  grid-row: 1 / span 2;
+}
+
+.totalprice {
+  grid-column: 4 ;
+  grid-row: 1 / span 2;
+}
+
+.imgnav{
+    width: 35px;
+    height: 40px;
+    border-radius: 30px;
+    padding-right: 5px;
+    padding-top: 3px;
+
+}
+.productimage  {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
 
 }
 
-.product:hover{
-  transform: scale(1.1);
-}
-
-.productimage img {
-  max-width: 100%;
-}
-
-/* .productinfo {
-  margin-top: auto;
-} */
+.value{
+    padding-top: 5px;
+    font: 10pt sans-serif;
+    color: gray;
+  }
 
 .button {
   display: inline-block;
@@ -118,6 +149,32 @@ ul {
   margin: 5px;
   background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
 
+}
+.addbutton{
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0474aa;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: 15;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  width: 150;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-left: 20px;
+  margin-right: 20px;
+  background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
+}
+
+.addbutton span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .button span {
@@ -150,25 +207,28 @@ ul {
     font-weight: bold;
 }
 
-<<<<<<< Updated upstream
-=======
+.add{
+    font-size: 20pt;
+    font-weight: bold;
+    color: white;
+}
+
 .brief{
     font-size: 8pt;
     color: #505050;
 }
 
-.imgnav{
-    width: 45px;
-    height: 35px;
-    border-radius: 100px;
-    padding-right: 5px;
-    padding-top: 3px;
-    margin-top: 5px;
-    cursor: pointer;
-
+.quan{
+    font-size: 15pt;
+    font-weight: bold;
 }
 
->>>>>>> Stashed changes
+.total{
+   display:block;
+   width: 65%;
+   margin-left: 50px;
+   float: right;
+   }
 </style>
 </head>
 
@@ -183,11 +243,6 @@ ul {
 
 
             if(isset($_SESSION['user_id'])){
-<<<<<<< Updated upstream
-            echo '<li><a class="active" href="get_favorite_products.php">Favourite Products</a></li>';
-            echo '<li><a href="#Cart">Cart</a></li>';
-            echo '<li id="lastchild"><a href="profile.php">Profile</a></li>';
-=======
               echo '<li ><a class="text" href="get_favorite_products.php">Favourite Products</a></li>';
               echo '<li><a class="text" href="get_cart.php">Cart</a></li></center>';
 
@@ -199,7 +254,6 @@ ul {
               echo "<li id='lastchild'><a class='text' href='profile.php'>Profile</a></li>";
 
             }
->>>>>>> Stashed changes
             }
             else{
                 echo '<li id="lastchild"><a class="text" href="login.html">Login</a></li>';
@@ -208,42 +262,72 @@ ul {
             }
             ?>
             </ul>
-<<<<<<< Updated upstream
-        <h1 class='undernav'> Favourite Products</h1>
-=======
             <script>
               document.getElementById('profile').addEventListener('click', function() {
                 // Navigate to the profile page
                 window.location.href = 'profile.php';
               });
             </script>
->>>>>>> Stashed changes
 </div>
+
 <?php
 
 if (isset($_SESSION["user_id"])) {
     $db = mysqli_connect("localhost", "root", "", "ecomm-db");
     $user_id = $_SESSION["user_id"];
-    $q = mysqli_query($db, "SELECT p.* FROM favorite_products fp JOIN product p ON p.product_id = fp.product_id WHERE fp.user_id =$user_id ;");
+    $q = mysqli_query($db, "SELECT p.* FROM cart
+    fp JOIN product p ON p.product_id = fp.product_id WHERE fp.user_id =$user_id ;");
     echo "<section class='undernav'>";
-    //add the product to naviagte to the product page
+    //add the product to naviagte to the cart page
+    //need to show quantity
+    $total_cart_price=0;
     while ($row = mysqli_fetch_array($q)) {
+        $total_product_price=0;
         $product_id = $row['product_id'];
-        echo "<div class='product'>";
-        echo "<center><div class='productimage'>
-            <img src='images/" . $row['product_photo'] . "'>
+        $q2 = mysqli_query($db, "SELECT * FROM `cart` WHERE `user_id` = $user_id AND `product_id` = $product_id");
+        $row2 = mysqli_fetch_array($q2);
+        $product_count  = mysqli_query($db, "SELECT * FROM `product` WHERE `product_id` = $product_id");
+        $product_count_row = mysqli_fetch_array($product_count);
+        $total_product_price = $row2['quantity'] * $row['product_price'];
+        $total_cart_price += $total_product_price;
+        echo "<div class='grid-container'>";
+        echo "<center><div class='image'>
+            <img class='productimage' src='images/" . $row['product_photo'] . "'>
             </div></center>";
-        echo "<div>";
-        echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
-        echo "<center><p>" . $row['product_brief'] . "</p></center>";
-        echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
+        
+        echo " <span class='name'> <div>". $row['product_name'] . "</div>
+               <div class='value'>" .  $row['product_price']  . "EGP</div> </span> ";
+        
+        echo "<div class='quantity'>";
+        echo "<button class='addbutton'><a href='reduce_quantity.php?product_id=$product_id' class='link'> <span class='add'>-</span></a></button>";
+        echo "<span class=quan>".$row2['quantity'] . "</span>";
+        if ($product_count_row['product_count'] > $row2['quantity']) {
+            echo "<button class='addbutton'><a href='add_quantity.php?product_id=$product_id' class='link'> <span class='add'>+ </span></a></button>";
+        } else {
+            echo "<button class='addbutton'><span class='add'>+</span></a></button>";
+          }
+        echo "</div> ";
 
-        echo"";
+        echo "<div class='totalprice'>";
+        echo "<span class='brief'>". $row['product_price']. " X " . $row2['quantity'] . "</span>";
+        echo "<span > = ". $total_product_price . "EGP</span>";
+        echo "</div>";
+
 
         echo "</div>";
-        echo "</div>";
+        echo "<br>";
     }
+
+    echo "<div class='total'>";
+    echo "<span  style='float: right;'>Total Price = ". $total_cart_price . "EGP</span>";
+    echo "<br>";
+    echo "<button class='button' style='float: right;'><a href='buy.php' class='link'><span>Purchase </span></a></button>";
+
+
+    echo "</div>";
+
     echo "</section>";
+    //purchase button
 
     mysqli_close($db);
 }
@@ -253,7 +337,6 @@ if (isset($_SESSION["user_id"])) {
     }
 
 ?>
-
 
 </body>
 

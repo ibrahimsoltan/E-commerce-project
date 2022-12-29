@@ -1,9 +1,7 @@
-<!DOCTYPE html>
 <html>
 <head>
-
-<style>
-     body{
+    <style>
+         body{
             background-color:#f7f7f773
         }
     #lastchild {
@@ -60,7 +58,8 @@ ul {
 
   .navbar{
     top: 0;
-    width: 98.5%;
+    left: 0;
+    width: 100%;
     position: fixed;
     z-index: 1;  /* add this line */
     background-color: white;
@@ -68,40 +67,19 @@ ul {
     justify-content: space-between;
   }
 
-  .undernav {
-    padding:20px;
-    margin-top:30px;
+    .undernav {
+    margin-top:90px;
     display:flex;
     flex-wrap: wrap;
     align-items:center; 
+
     justify-content: center;
+
   }
-
-  .product {
-  padding: 2%;
-  flex: 1 16%;
-  border-radius: 10px;
-  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
-  padding: 25px;
-  margin: 15px;
-  flex-basis: 500px;
-  max-width:250px;
-  transition: 0.5s ease;
-  background-color: white;
-
+  .marketimage img {
+  max-width: 80%;
+  max-height:150
 }
-
-.product:hover{
-  transform: scale(1.1);
-}
-
-.productimage img {
-  max-width: 100%;
-}
-
-/* .productinfo {
-  margin-top: auto;
-} */
 
 .button {
   display: inline-block;
@@ -145,31 +123,59 @@ ul {
   right: 0;
 }
 
+.marketcard {
+  padding: 2%;
+  flex: 1 16%;
+  border-radius: 10px;
+  box-shadow: 0 5px 25px rgba(1 1 1 / 15%) ;
+  padding: 25px;
+  margin: 15px;
+  flex-basis: 500px;
+  max-width:250px;
+  transition: 0.5s ease;
+  background-color: white;
+}
+
+.marketcard:hover{
+  transform: scale(1.1);
+}
+
+.marketimage img {
+  max-width: 200px;
+  height: 180px;
+}
+
+.allmarkets {
+    display:flex;
+    flex-wrap: wrap;
+    width: 85%;
+    padding-top:20px;
+    justify-content: center;
+  }
+
+.markettitle {
+  font-size: 15pt ;
+    font-weight: bold;
+    display: block;
+}
 .link{
     color:white;
     font-weight: bold;
 }
-
-<<<<<<< Updated upstream
-=======
-.brief{
-    font-size: 8pt;
-    color: #505050;
+.marketphone{
+  float: right;
+}
+.marketaddress{
+  float: left;
+}
+#componentAnchor{
+  text-decoration: none;
+  color: black;
 }
 
-.imgnav{
-    width: 45px;
-    height: 35px;
-    border-radius: 100px;
-    padding-right: 5px;
-    padding-top: 3px;
-    margin-top: 5px;
-    cursor: pointer;
 
-}
+    </style>
 
->>>>>>> Stashed changes
-</style>
 </head>
 
 <body>
@@ -183,11 +189,6 @@ ul {
 
 
             if(isset($_SESSION['user_id'])){
-<<<<<<< Updated upstream
-            echo '<li><a class="active" href="get_favorite_products.php">Favourite Products</a></li>';
-            echo '<li><a href="#Cart">Cart</a></li>';
-            echo '<li id="lastchild"><a href="profile.php">Profile</a></li>';
-=======
               echo '<li ><a class="text" href="get_favorite_products.php">Favourite Products</a></li>';
               echo '<li><a class="text" href="get_cart.php">Cart</a></li></center>';
 
@@ -199,7 +200,6 @@ ul {
               echo "<li id='lastchild'><a class='text' href='profile.php'>Profile</a></li>";
 
             }
->>>>>>> Stashed changes
             }
             else{
                 echo '<li id="lastchild"><a class="text" href="login.html">Login</a></li>';
@@ -208,53 +208,50 @@ ul {
             }
             ?>
             </ul>
-<<<<<<< Updated upstream
-        <h1 class='undernav'> Favourite Products</h1>
-=======
             <script>
               document.getElementById('profile').addEventListener('click', function() {
                 // Navigate to the profile page
                 window.location.href = 'profile.php';
               });
             </script>
->>>>>>> Stashed changes
 </div>
-<?php
+<section class="undernav">
+  <?php
+error_reporting(0);
+session_start();
 
-if (isset($_SESSION["user_id"])) {
-    $db = mysqli_connect("localhost", "root", "", "ecomm-db");
-    $user_id = $_SESSION["user_id"];
-    $q = mysqli_query($db, "SELECT p.* FROM favorite_products fp JOIN product p ON p.product_id = fp.product_id WHERE fp.user_id =$user_id ;");
-    echo "<section class='undernav'>";
-    //add the product to naviagte to the product page
-    while ($row = mysqli_fetch_array($q)) {
-        $product_id = $row['product_id'];
-        echo "<div class='product'>";
-        echo "<center><div class='productimage'>
-            <img src='images/" . $row['product_photo'] . "'>
-            </div></center>";
-        echo "<div>";
-        echo " <span class='title'>". $row['product_name'] . "</span> <span id='lastchild' class='value'>".  $row['product_price']  . "EGP</span></h5>";
-        echo "<center><p>" . $row['product_brief'] . "</p></center>";
-        echo "<button class='button'><a href='product.php?product_id=$product_id' class='link'><span>View Product </span></a></button>";
-
-        echo"";
-
-        echo "</div>";
-        echo "</div>";
-    }
-    echo "</section>";
-
-    mysqli_close($db);
-}
+$msg = "";
+$db = mysqli_connect("localhost", "root", "", "ecomm-db");
+$q = mysqli_query($db, 'SELECT * FROM `market`');
+// echo "<section  class='allmarkets'>";
+while ($row=mysqli_fetch_array($q)) {
+  // echo "<a id='componentAnchor' href='market_profile.php'";
+  echo "<div class='marketcard' >";
+    $market_id =$row['market_id'];
+    echo "<center><div class='marketimage'>
+        <img src='images/" . $row['market_photo'] . "'>
+        </div></center>";
+    echo " <span class='markettitle'>". $row['market_name'] . "</span> <span id='lastchild' class='value'>". "</span>";
     
-    else {
-        echo "You are not logged in";
-    }
+    echo " <span class='marketphone'>". $row['market_phone'] . "</span> <span id='lastchild' class='value'>". "</span>";
+    echo " <span class='marketaddress'>". $row['market_address'] . "</span> <span id='lastchild' class='value'>". "</span>";    
+    echo "<br>";
+    // echo"</a>";
+//     if (isset($_SESSION["user_id"]))
+// {
+//     echo "<button class='button'><a href='add_to_liked_markets.php?market_id=$market_id' class='link'><span>add to liked markets </span></a></button>";
+// }
+// else{
+//     echo "<button class='button'><a href='add_to_liked_markets.php?market_id=$market_id' class='link'><span>add to liked markets </span></a></button>";
+// }
+echo "</div>";
+// echo "</section>";
+}
+mysqli_close($db);
 
 ?>
 
 
+</section>
 </body>
-
 </html>

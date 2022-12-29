@@ -45,7 +45,7 @@ if (isset($_SESSION["market_id"])) {
     }
     $q = mysqli_query($db, "INSERT INTO `market_products` (`market_id`, `product_id`, `market_products_id`) VALUES ($market_id, $product_id, NULL)");
     if ($q) {
-        header("Location: products_of_market.php");
+        header("Location: market_profile.php");
     } else {
         echo "Error updating record: " . mysqli_error($conn);
     }

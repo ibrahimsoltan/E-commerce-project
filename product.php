@@ -3,13 +3,74 @@
 <head>
 
 <style>
-    body{
-        background-color: #dae0e573;
+     body{
+          background-color:#f7f7f773;
         }
     #lastchild {
     float: right;
   }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+  display: inline-block;
+  
+  }
+
+  .title{
+
+    font-size: 15pt ;
+    font-weight: bold;
+  }
+
+  .value{
+    padding-top: 5px;
+    font: 10pt sans-serif;
+    color: gray;
+  }
+  
+  .left {
+    float: left;
+  }
+
+  li{
+      display: inline-block;
+
+  }
+  
+  li .text {
+    display: inline-block;
+    color: black;
+    padding: 14px 16px;
+    text-decoration: none;
+    
+  }
+
+
+  .text:hover {
+    border-bottom: 3px solid black;
+  }
+
+  .active {
+    border-bottom: 3px solid black;
+  }
+
+  .navbar{
+    top: 0;
+    left: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 1;  /* add this line */
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+  }
+
+
+  
   #firstchild {
     float: left;
   }
@@ -26,55 +87,6 @@
     margin-bottom: 0;
   }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-
-  }
-
-  .title{
-
-    font-size: 15pt ;
-    font-weight: bold;
-  }
-
-  .value{
-    padding-top: 5px;
-    font: 10pt sans-serif;
-    color: gray;
-  }
-  
-  li {
-    float: left;
-    
-  }
-  
-  li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    
-  }
-  
-  li a:hover {
-    background-color: #111;
-  }
-
-  .active {
-    background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
-  }
-
-  .navbar{
-    top: 0;
-    width: 98.5%;
-    position: fixed;
-    
-  }
 
   section.undernav {
     padding:100px;
@@ -107,8 +119,7 @@ ul {
   transition: all 0.5s;
   cursor: pointer;
   margin: 5px;
-  background: linear-gradient(to bottom right,#2627a8cf, rgb(179 232 251));
-
+  background-color: white;
 }
 
 .button span {
@@ -195,6 +206,7 @@ ul {
 </head>
 
 <body>
+<<<<<<< Updated upstream
 <div >
 <ul class="navbar">
             <li><a href="view_products.php">Home</a></li>
@@ -214,6 +226,38 @@ ul {
             }
             ?>
             </ul>
+=======
+  <div >
+    <ul class="navbar" id="navbar">
+
+      <?php
+        session_start();
+        echo '<li class="left" style="padding-left:10px;"><a href="view_products.php"><img style="width:100px; height:50px" src="images/flightclub2.jpg"></a></li>';
+        echo '<center><li><a class="text"href="view_all_markets.php">Markets</a></li>';
+
+
+        if(isset($_SESSION['user_id']))
+        {
+          echo '<li ><a class="text" href="get_favorite_products.php">Favourite Products</a></li>';
+          echo '<li><a class="text" href="get_cart.php">Cart</a></li></center>';
+
+          $Session=$_SESSION["user_id"];
+          $db = mysqli_connect("localhost", "root", "", "ecomm-db");
+          $q = mysqli_query($db, "SELECT * FROM `user` WHERE user_id= '$Session'");
+          while ($row=mysqli_fetch_array($q )) 
+          {
+            echo "<li id='lastchild'><a class='text' href='profile.php'>Profile</a></li>";
+          }
+        }
+        else
+        {
+          echo '</center>
+                <li id="lastchild"><a class="text" href="login.html">Login</a></li>';
+          echo '<li id="lastchild"><a class="text" href="sign_Up.html">Sign up</a></li>';
+        }
+      ?>
+    </ul>
+>>>>>>> Stashed changes
 
 </div>
         <section class='undernav'>
@@ -226,6 +270,7 @@ $product_id = $_GET['product_id'];
 $db = mysqli_connect("localhost", "root", "", "ecomm-db");
 $q = mysqli_query($db, "SELECT * FROM `product` WHERE product_id = $product_id");
 while ($row = mysqli_fetch_array($q)) {
+<<<<<<< Updated upstream
     $product_id = $row['product_id'];
     echo "<div class='brief'> <h4 id='firstchild'>".$row['product_brief']."</h4></div>";
     echo "<div class='image'> <img class='undernav' src='images/".$row['product_photo']."'> </div>";
@@ -241,6 +286,37 @@ if (isset($_SESSION["user_id"])) {
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><span>Add to favorites</span></a></button></span></div> ";
 
 } else {
+=======
+  $product_id = $row['product_id'];
+  echo "<div class='image'> <img class='undernav' src='images/" . $row['product_photo'] . "'> </div>";
+  echo "<div class=' nameprice'><h2>" . $row['product_name'] . "</h2>
+     <p id='price'>" . $row['product_price'] . "EGP</p></div>";
+  echo "<div class='description'><p id='firstchild'>" . $row['product_description'] . "</p></div>";
+
+
+  echo "</table>";
+  if (isset($_SESSION["user_id"])) {
+    $user_id = $_SESSION['user_id'];
+    $q2 = mysqli_query($db, "SELECT * FROM `favorite_products` WHERE user_id = $user_id AND product_id = $product_id");
+    if (mysqli_num_rows($q2) > 0) {
+      echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><img src='images/heart-red-icon.png' style='width:20px;height:20px'></a></button></span></div> ";
+    } else {
+      echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='add_to_favorites.php?product_id=$product_id'><img src='images/heart-white-icon.png' style='width:20px;height:20px'></a></button></span></div> ";
+    }
+
+    if ($row['product_count'] > 0) {
+      $q2 = mysqli_query($db, "SELECT * FROM `cart` WHERE user_id = $user_id AND product_id = $product_id");
+      if (mysqli_num_rows($q2) > 0) {
+        echo "<div class='backbutton'><span ><button class='button'><a class='link' href='add_to_cart.php?product_id=$product_id'><span><img src='images/cart-filled-icon.png' style='width:20px;height:20px'></span></a></button></span></div></center>";
+      } else {
+        echo "<div class='backbutton'><span ><button class='button'><a class='link' href='add_to_cart.php?product_id=$product_id'><span><img src='images/shopping-cart-icon.png' style='width:20px;height:20px'></span></a></button></span></div></center>";
+      }
+
+    } else {
+      echo "<div class='backbutton'><span><button class='button' disabled><span>Out of stock</span></a></button></span></div></center>";
+    }
+  } else {
+>>>>>>> Stashed changes
     echo "<div class='addfavbutton'><span id='lastchild'><button class='button'><a class='link' href='login.html'><span>Login to add to favorites</span></a></button></span></div> ";
 
 }    
